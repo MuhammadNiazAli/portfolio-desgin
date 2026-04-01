@@ -1,7 +1,7 @@
 "use client";
 import { useRef, useMemo } from "react";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { OrbitControls, Sphere, MeshDistortMaterial, Stars, Float, Text3D, Center } from "@react-three/drei";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { Sphere, MeshDistortMaterial, Stars, Float } from "@react-three/drei";
 import * as THREE from "three";
 
 function AnimatedSphere() {
@@ -54,6 +54,11 @@ function ParticleField() {
     return pos;
   }, []);
 
+  const positionAttribute = useMemo(
+    () => new THREE.BufferAttribute(positions, 3),
+    [positions]
+  );
+
   useFrame((state) => {
     if (!points.current) return;
     points.current.rotation.y = state.clock.elapsedTime * 0.02;
@@ -63,11 +68,7 @@ function ParticleField() {
   return (
     <points ref={points}>
       <bufferGeometry>
-        <bufferAttribute
-          attach="attributes-position"
-          count={count}
-          array={positions}
-          itemSize={3} args={[]}        />
+        <primitive object={positionAttribute} attach="attributes-position" />
       </bufferGeometry>
       <pointsMaterial
         size={0.02}

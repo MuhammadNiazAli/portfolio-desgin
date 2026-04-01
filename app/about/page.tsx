@@ -439,12 +439,13 @@ export default function AboutPage() {
                   transition={{ duration: 0.4 }}
                 >
                   <Image
-                    src="/assets/me.jpg"
-                    alt="Muhammad Niaz Ali"
-                    fill
-                    className="object-cover"
-                    priority
-                  />
+  src="/assets/me.jpg"
+  alt="Muhammad Niaz Ali"
+  fill
+  sizes="(max-width: 768px) 100vw, 300px"
+  className="object-cover"
+  priority
+/>
                   {/* scan-line overlay for effect */}
                   <div
                     className="absolute inset-0 opacity-10 pointer-events-none"

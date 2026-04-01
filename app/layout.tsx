@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CustomCursor from "@/components/ui/CustomCursor";
 import { Toaster } from "react-hot-toast";
+import ReviewPopup from "@/components/ReviewPopup";
 
 export const metadata: Metadata = {
   title: "Muhammad Niaz Ali | Full Stack Developer & Software Engineer",
@@ -36,7 +37,9 @@ export default function RootLayout({
       <body>
         <CustomCursor />
         <Header />
-        <main>{children}</main>
+        <main>{children}
+           <ReviewPopup /> 
+        </main>
         <Footer />
         <Toaster
           position="bottom-right"
