@@ -165,7 +165,7 @@ function CountUp({ target, suffix }: { target: number; suffix: string }) {
   }, [smooth]);
 
   return (
-    <span ref={ref} className="font-display text-5xl font-bold gradient-text">
+    <span ref={ref} className="font-display text-4xl sm:text-5xl font-bold gradient-text">
       <span ref={displayRef}>0</span>{suffix}
     </span>
   );
@@ -173,9 +173,7 @@ function CountUp({ target, suffix }: { target: number; suffix: string }) {
 
 // ─── VALUE CARD ───────────────────────────────────────────────────────────────
 
-function ValueCard({
-  value, index,
-}: { value: typeof values[number]; index: number }) {
+function ValueCard({ value, index }: { value: typeof values[number]; index: number }) {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
   const [hovered, setHovered] = useState(false);
 
@@ -188,21 +186,16 @@ function ValueCard({
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       className="group relative flex flex-col bg-[#0a0a0f] border border-white/[0.07]
-                 overflow-hidden hover:bg-[#0d0d15] transition-colors duration-300 p-9"
+                 overflow-hidden hover:bg-[#0d0d15] transition-colors duration-300 p-6 sm:p-9"
     >
-      {/* colored top border */}
       <span
         className="absolute inset-x-0 top-0 h-[1px] z-10"
         style={{ background: `linear-gradient(90deg, ${value.color}, transparent)` }}
       />
-
-      {/* hover glow */}
       <span
         className="absolute inset-0 opacity-0 group-hover:opacity-[0.05] transition-opacity duration-500 pointer-events-none"
         style={{ background: `linear-gradient(135deg, ${value.color}, transparent 55%)` }}
       />
-
-      {/* corner orb */}
       <motion.span
         className="absolute -top-10 -right-10 w-28 h-28 rounded-full pointer-events-none blur-[50px]"
         style={{ background: value.color }}
@@ -211,21 +204,17 @@ function ValueCard({
       />
 
       <div className="relative z-10">
-        {/* icon */}
         <motion.div
           animate={{ scale: hovered ? 1.08 : 1 }}
           transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          className="w-12 h-12 flex items-center justify-center mb-8"
-          style={{
-            background: value.color + "12",
-            border: `1px solid ${value.color}28`,
-          }}
+          className="w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center mb-6 sm:mb-8"
+          style={{ background: value.color + "12", border: `1px solid ${value.color}28` }}
         >
           <value.icon className="w-5 h-5" style={{ color: value.color }} />
         </motion.div>
 
         <h3
-          className="font-display text-xl tracking-wide text-white mb-3 transition-colors duration-300"
+          className="font-display text-lg sm:text-xl tracking-wide text-white mb-2 sm:mb-3 transition-colors duration-300"
           style={{ color: hovered ? value.color : undefined }}
         >
           {value.title}
@@ -249,11 +238,11 @@ function TimelineItem({
       initial={{ opacity: 0, x: -30 }}
       animate={inView ? { opacity: 1, x: 0 } : {}}
       transition={{ duration: 0.65, delay: index * 0.12, ease: [0.22, 1, 0.36, 1] }}
-      className="flex gap-8 items-start group"
+      className="flex gap-4 sm:gap-8 items-start group"
     >
       {/* year label */}
-      <div className="flex-shrink-0 w-[88px] text-right pt-1">
-        <span className="font-mono text-sm font-bold" style={{ color: item.color }}>
+      <div className="flex-shrink-0 w-[60px] sm:w-[88px] text-right pt-1">
+        <span className="font-mono text-xs sm:text-sm font-bold" style={{ color: item.color }}>
           {item.year}
         </span>
       </div>
@@ -263,12 +252,8 @@ function TimelineItem({
         <motion.div
           animate={inView ? { scale: [0, 1.3, 1] } : {}}
           transition={{ duration: 0.5, delay: index * 0.12 + 0.1 }}
-          className="w-4 h-4 rounded-full border-2 flex-shrink-0 relative z-10 mt-0.5"
-          style={{
-            borderColor: item.color,
-            background: "#000",
-            boxShadow: `0 0 10px ${item.color}66`,
-          }}
+          className="w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full border-2 flex-shrink-0 relative z-10 mt-0.5"
+          style={{ borderColor: item.color, background: "#000", boxShadow: `0 0 10px ${item.color}66` }}
         />
         {!isLast && (
           <div
@@ -279,13 +264,13 @@ function TimelineItem({
       </div>
 
       {/* content */}
-      <div className="flex-1 pb-10 relative bg-[#0a0a0f] border border-white/[0.07] p-6 overflow-hidden
+      <div className="flex-1 pb-8 sm:pb-10 relative bg-[#0a0a0f] border border-white/[0.07] p-4 sm:p-6 overflow-hidden
                       group-hover:bg-[#0d0d15] transition-colors duration-300">
         <span
           className="absolute inset-x-0 top-0 h-[1px]"
           style={{ background: `linear-gradient(90deg, ${item.color}, transparent)` }}
         />
-        <h3 className="font-mono text-xs tracking-[3px] uppercase text-white mb-2">
+        <h3 className="font-mono text-[10px] sm:text-xs tracking-[2px] sm:tracking-[3px] uppercase text-white mb-2">
           {item.title}
         </h3>
         <p className="font-body text-white/40 text-sm leading-relaxed">{item.desc}</p>
@@ -304,13 +289,13 @@ export default function AboutPage() {
       <ParticleCanvas />
 
       {/* ── HERO ── */}
-      <section className="relative py-28 grid-bg overflow-hidden">
-        <div className="absolute -top-40 -left-20 w-[500px] h-[500px] rounded-full
+      <section className="relative py-16 sm:py-20 md:py-28 grid-bg overflow-hidden">
+        <div className="absolute -top-40 -left-20 w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] rounded-full
                         bg-[#00ff88]/10 blur-[120px] pointer-events-none" />
-        <div className="absolute -bottom-40 -right-20 w-[500px] h-[500px] rounded-full
+        <div className="absolute -bottom-40 -right-20 w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] rounded-full
                         bg-[#0088ff]/10 blur-[120px] pointer-events-none" />
 
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+        <div className="w-full px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-10">
           <motion.span
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -324,48 +309,48 @@ export default function AboutPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.25 }}
-            className="font-display text-6xl sm:text-7xl lg:text-8xl tracking-wider text-white mt-3 mb-10"
+            className="font-display text-5xl sm:text-6xl lg:text-8xl tracking-wider text-white mt-3 mb-8 sm:mb-10"
           >
             WHO<br />
             <span className="gradient-text">AM I?</span>
           </motion.h1>
 
           {/* ── TWO-COLUMN CONTENT ── */}
-          <div className="grid lg:grid-cols-2 gap-[2px] bg-white/[0.04]">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-[2px] bg-white/[0.04]">
 
             {/* LEFT — text */}
             <motion.div
               initial={{ opacity: 0, x: -40 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className="relative bg-[#0a0a0f] p-10 overflow-hidden"
+              className="relative bg-[#0a0a0f] p-6 sm:p-10 overflow-hidden"
             >
               <span className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-[#00ff88] to-transparent" />
 
-              <p className="font-body text-white/70 text-lg leading-relaxed mb-6">
+              <p className="font-body text-white/70 text-base sm:text-lg leading-relaxed mb-5 sm:mb-6">
                 Hey! I&apos;m{" "}
                 <span className="text-[#00ff88] font-semibold">Muhammad Niaz Ali</span>,
                 a passionate Full Stack Web Developer &amp; Software Engineer based in Pakistan.
                 I specialize in building modern, scalable, and high-performance web applications
                 that deliver real value to users and businesses.
               </p>
-              <p className="font-body text-white/45 leading-relaxed mb-6">
+              <p className="font-body text-white/45 leading-relaxed mb-5 sm:mb-6">
                 With 3+ years of hands-on experience, I&apos;ve worked across the full spectrum —
                 from crafting pixel-perfect, interactive frontends with React and Next.js
                 to architecting robust backend systems with Node.js, databases, and cloud infrastructure.
               </p>
-              <p className="font-body text-white/45 leading-relaxed mb-10">
+              <p className="font-body text-white/45 leading-relaxed mb-8 sm:mb-10">
                 I believe great software is not just functional — it&apos;s beautiful, fast, and delightful
                 to use. Every project I take on gets my full dedication and creative energy.
               </p>
 
               {/* badges */}
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap gap-2 sm:gap-3">
                 {badges.map((b) => (
                   <div
                     key={b.text}
-                    className="flex items-center gap-2 px-4 py-2 border border-white/[0.08]
-                               font-mono text-[11px] tracking-[2px] text-white/40 uppercase
+                    className="flex items-center gap-2 px-3 sm:px-4 py-2 border border-white/[0.08]
+                               font-mono text-[10px] sm:text-[11px] tracking-[2px] text-white/40 uppercase
                                hover:border-[#00ff88]/30 hover:text-[#00ff88] transition-all duration-200"
                   >
                     <span className="text-[#00ff88]">{b.emoji}</span>
@@ -374,11 +359,11 @@ export default function AboutPage() {
                 ))}
               </div>
 
-              <div className="mt-10 pt-8 border-t border-white/[0.06] flex items-center gap-4">
+              <div className="mt-8 sm:mt-10 pt-6 sm:pt-8 border-t border-white/[0.06] flex items-center gap-4">
                 <Link
                   href="/contact"
-                  className="group inline-flex items-center gap-2 px-8 py-3.5
-                             font-mono text-sm font-bold text-black
+                  className="group inline-flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-3.5
+                             font-mono text-xs sm:text-sm font-bold text-black
                              hover:shadow-[0_0_40px_rgba(0,255,136,0.35)]
                              transition-shadow duration-300"
                   style={{ background: "linear-gradient(135deg, #00ff88, #00cc6a)" }}
@@ -394,13 +379,12 @@ export default function AboutPage() {
               initial={{ opacity: 0, x: 40 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="relative bg-[#0a0a0f] p-10 overflow-hidden flex items-center justify-center"
+              className="relative bg-[#0a0a0f] p-6 sm:p-10 overflow-hidden flex items-center justify-center min-h-[320px] sm:min-h-[400px]"
               onMouseEnter={() => setImageHovered(true)}
               onMouseLeave={() => setImageHovered(false)}
             >
               <span className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-[#0088ff] to-transparent" />
 
-              {/* ambient glow behind image */}
               <motion.div
                 className="absolute inset-0 pointer-events-none"
                 animate={{ opacity: imageHovered ? 0.08 : 0.03 }}
@@ -409,8 +393,7 @@ export default function AboutPage() {
               />
 
               {/* image frame */}
-              <div className="relative w-full max-w-[300px] aspect-square">
-                {/* decorative corner lines */}
+              <div className="relative w-[220px] sm:w-[260px] md:w-[300px] aspect-square">
                 {[
                   "top-0 left-0 border-t-2 border-l-2",
                   "top-0 right-0 border-t-2 border-r-2",
@@ -419,34 +402,31 @@ export default function AboutPage() {
                 ].map((cls, i) => (
                   <motion.div
                     key={i}
-                    className={`absolute w-6 h-6 border-[#00ff88] z-20 ${cls}`}
+                    className={`absolute w-5 h-5 sm:w-6 sm:h-6 border-[#00ff88] z-20 ${cls}`}
                     animate={{ opacity: imageHovered ? 1 : 0.4 }}
                     transition={{ duration: 0.3 }}
                   />
                 ))}
 
-                {/* outer ring */}
                 <motion.div
                   className="absolute inset-0 border border-white/[0.08]"
                   animate={{ borderColor: imageHovered ? "#00ff8840" : "rgba(255,255,255,0.08)" }}
                   transition={{ duration: 0.3 }}
                 />
 
-                {/* image container */}
                 <motion.div
                   className="absolute inset-3 overflow-hidden"
                   animate={{ scale: imageHovered ? 1.02 : 1 }}
                   transition={{ duration: 0.4 }}
                 >
                   <Image
-  src="/assets/me.jpg"
-  alt="Muhammad Niaz Ali"
-  fill
-  sizes="(max-width: 768px) 100vw, 300px"
-  className="object-cover"
-  priority
-/>
-                  {/* scan-line overlay for effect */}
+                    src="/assets/me.jpg"
+                    alt="Muhammad Niaz Ali"
+                    fill
+                    sizes="(max-width: 640px) 220px, (max-width: 768px) 260px, 300px"
+                    className="object-cover"
+                    priority
+                  />
                   <div
                     className="absolute inset-0 opacity-10 pointer-events-none"
                     style={{
@@ -455,15 +435,14 @@ export default function AboutPage() {
                   />
                 </motion.div>
 
-                {/* name tag below image */}
                 <motion.div
                   className="absolute -bottom-5 left-0 right-0 flex justify-center"
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.8 }}
                 >
-                  <div className="px-4 py-1.5 bg-[#0a0a0f] border border-white/[0.08]
-                                  font-mono text-[10px] tracking-[3px] text-[#00ff88] uppercase">
+                  <div className="px-3 sm:px-4 py-1.5 bg-[#0a0a0f] border border-white/[0.08]
+                                  font-mono text-[9px] sm:text-[10px] tracking-[3px] text-[#00ff88] uppercase">
                     Muhammad Niaz Ali
                   </div>
                 </motion.div>
@@ -476,7 +455,7 @@ export default function AboutPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.1 }}
-            className="mt-16 flex items-center gap-4 font-mono text-[10px] tracking-[4px]
+            className="mt-10 sm:mt-16 flex items-center gap-4 font-mono text-[10px] tracking-[4px]
                        text-white/25 uppercase"
           >
             <span className="w-10 h-px bg-gradient-to-r from-transparent to-white/25" />
@@ -485,8 +464,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── STATS ── */}
-      <div className="relative z-10 px-6 lg:px-8 max-w-7xl mx-auto">
+      {/* ── STATS — 2×2 grid on mobile, 4-col on desktop ── */}
+      <div className="relative z-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="grid grid-cols-2 lg:grid-cols-4 border border-white/[0.07]">
           {stats.map((s, i) => (
             <motion.div
@@ -495,12 +474,18 @@ export default function AboutPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.55, delay: i * 0.09 }}
-              className="border-r border-b border-white/[0.07] last:border-r-0
-                         [&:nth-child(2)]:lg:border-r [&:nth-child(3)]:border-b-0
-                         [&:nth-child(4)]:border-b-0 px-8 py-10"
+              className={[
+                "flex flex-col items-start px-5 sm:px-8 py-8 sm:py-10",
+                // mobile: right border on even cols, bottom border on top row
+                i % 2 === 0 ? "border-r border-white/[0.07]" : "",
+                i < 2      ? "border-b border-white/[0.07]" : "",
+                // desktop overrides
+                i < 2      ? "lg:border-b-0" : "",
+                i < stats.length - 1 ? "lg:border-r border-white/[0.07]" : "lg:border-r-0",
+              ].filter(Boolean).join(" ")}
             >
               <CountUp target={s.num} suffix={s.suffix} />
-              <p className="font-mono text-[10px] tracking-[3px] text-white/35 uppercase mt-2">
+              <p className="font-mono text-[9px] sm:text-[10px] tracking-[3px] text-white/35 uppercase mt-2">
                 {s.label}
               </p>
             </motion.div>
@@ -510,22 +495,23 @@ export default function AboutPage() {
 
       {/* ── VALUES ── */}
       <section className="section-padding relative z-10">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex items-center gap-5 mb-14">
+        <div className="w-full px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+          <div className="flex items-center gap-5 mb-10 sm:mb-14">
             <span className="font-mono text-[10px] tracking-[5px] text-accent uppercase">
               My Approach
             </span>
             <span className="flex-1 h-px bg-white/[0.07] max-w-[200px]" />
           </div>
 
-          <div className="mb-10">
-            <h2 className="font-display text-4xl lg:text-6xl tracking-wider text-white">
+          <div className="mb-8 sm:mb-10">
+            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl tracking-wider text-white">
               WHAT<br />
               <span className="gradient-text">DRIVES ME</span>
             </h2>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-[2px] bg-white/[0.04]">
+          {/* 1-col mobile, 2-col sm, 4-col lg */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[2px] bg-white/[0.04]">
             {values.map((v, i) => (
               <ValueCard key={v.title} value={v} index={i} />
             ))}
@@ -535,14 +521,13 @@ export default function AboutPage() {
 
       {/* ── TIMELINE ── */}
       <section className="section-padding bg-[#0a0a0f] border-t border-white/[0.05] relative z-10">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          {/* header */}
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-16">
+        <div className="w-full px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12 sm:mb-16">
             <div>
               <span className="font-mono text-[10px] tracking-[5px] text-accent uppercase">
                 My Journey
               </span>
-              <h2 className="font-display text-4xl lg:text-6xl tracking-wider text-white mt-2">
+              <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl tracking-wider text-white mt-2">
                 MY<br />
                 <span className="gradient-text">TIMELINE</span>
               </h2>
@@ -552,8 +537,7 @@ export default function AboutPage() {
             </p>
           </div>
 
-          {/* timeline items */}
-          <div className="space-y-0 max-w-3xl">
+          <div className="space-y-0 max-w-3xl w-full">
             {timeline.map((item, i) => (
               <TimelineItem
                 key={item.year}
@@ -570,10 +554,10 @@ export default function AboutPage() {
       <section className="section-padding bg-black border-t border-white/[0.05] relative z-10 overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
-                          w-[600px] h-[300px] rounded-full bg-[#00ff88]/6 blur-[100px]" />
+                          w-[400px] sm:w-[600px] h-[200px] sm:h-[300px] rounded-full bg-[#00ff88]/6 blur-[100px]" />
         </div>
 
-        <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
+        <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 text-center relative z-10">
           <motion.span
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -588,7 +572,7 @@ export default function AboutPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.15 }}
-            className="font-display text-5xl lg:text-7xl tracking-wider text-white mt-3 mb-10"
+            className="font-display text-4xl sm:text-5xl lg:text-7xl tracking-wider text-white mt-3 mb-8 sm:mb-10"
           >
             HAVE A PROJECT<br />
             <span className="gradient-text">IN MIND?</span>
@@ -599,14 +583,14 @@ export default function AboutPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4"
+            className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4"
           >
             <Link
               href="/contact"
-              className="group relative inline-flex items-center gap-3 px-10 py-4
-                         font-mono text-sm font-bold text-black overflow-hidden
+              className="group relative inline-flex items-center gap-3 px-8 sm:px-10 py-3.5 sm:py-4
+                         font-mono text-xs sm:text-sm font-bold text-black overflow-hidden
                          hover:shadow-[0_0_40px_rgba(0,255,136,0.35)]
-                         transition-shadow duration-300"
+                         transition-shadow duration-300 w-full sm:w-auto justify-center"
               style={{ background: "linear-gradient(135deg, #00ff88, #00cc6a)" }}
             >
               <motion.span
@@ -622,9 +606,10 @@ export default function AboutPage() {
 
             <Link
               href="/projects"
-              className="inline-flex items-center gap-3 px-10 py-4 font-mono text-sm
-                         text-white/50 border border-white/[0.08] hover:border-white/20
-                         hover:text-white transition-all duration-300"
+              className="inline-flex items-center justify-center gap-3 px-8 sm:px-10 py-3.5 sm:py-4
+                         font-mono text-xs sm:text-sm text-white/50 border border-white/[0.08]
+                         hover:border-white/20 hover:text-white transition-all duration-300
+                         w-full sm:w-auto"
             >
               View Projects
               <ArrowRight className="w-4 h-4" />

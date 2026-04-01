@@ -48,7 +48,7 @@ export default function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
           >
-            <h1 className="font-display text-6xl sm:text-7xl lg:text-8xl xl:text-9xl leading-none tracking-wider mb-2">
+            <h1 className="font-display text-5xl sm:text-7xl lg:text-8xl xl:text-9xl leading-none tracking-wider mb-2">
               <span className="block text-white">MUHAMMAD</span>
               <span className="block gradient-text text-glow">NIAZ ALI</span>
             </h1>
